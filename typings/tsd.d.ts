@@ -6,3 +6,4 @@
 /// <reference path="react/react.d.ts" />
 /// <reference path="redux/redux.d.ts" />
 /// <reference path="redux-actions/redux-actions.d.ts" />
+/// <reference path="serialize-javascript/serialize-javascript.d.ts"/>
