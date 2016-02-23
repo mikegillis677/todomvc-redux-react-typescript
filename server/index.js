@@ -3,6 +3,10 @@ var express = require('express');
 var http = require('http');
 var serveStatic = require('serve-static');
 var config = require('./config');
+var reactRouter = require('react-router');    // { match, RouterContext }
+var history = require('history');   // { createLocation }
+//var Html = require('../client/helpers/Html.tsx');
+var ReactDOMServer = require('react-dom/server');
 
 module.exports = function(options) {
   var Renderer = require("../config/SimpleRenderer.js");
@@ -27,6 +31,14 @@ module.exports = function(options) {
   }));
 
   app.get("/*", function(req, res) {
+    /*
+    const location = createLocation(req.url);
+
+    match({ routes, location }, (error, redirectLocation, renderProps: any) => {
+      var html = ReactDOMServer.renderToString(<RouterContext {...renderProps} />)
+      return res.render('main', { content: html, title: 'Home', min: min });
+    });
+    */
     renderer.render(
       req.path,
       function(err, html) {
