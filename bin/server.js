@@ -12,16 +12,17 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
+var serverIndex = require("../server/index");
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))
   .development(__DEVELOPMENT__)
   .server(rootDir, function() {
     if(__DEVELOPMENT__) {
-      require("../server/index")({
+      serverIndex.default({
         defaultPort: 8080,
         devServer: true
       });
     } else {
-      require("../server/index")({
+      serverIndex.default({
         prerender: true,
         separateStylesheet: true,
         devServer: false,

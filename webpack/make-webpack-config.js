@@ -23,21 +23,41 @@ module.exports = function(options) {
         'webpack-dev-server/client?http://0.0.0.0:2992',
         'webpack/hot/only-dev-server',
         './client/index'
+      ],
+      serverSide: [
+        './server/index'
       ]
     };
   } else {
     entry = {
-      todos: './client/index'
+      todos: './client/index',
+      serverSide: [
+        './server/index'
+      ]
     }
   }
 
   var loaders = {
+    "json": {
+      loaders: ["json-loader"]
+    },
     "js": {
       loaders: options.development ? ["react-hot", "babel-loader"] : ["babel-loader"],
-      include: path.join(__dirname, "..", "client")
+      include: [
+        path.join(__dirname, "..", "client"),
+        path.join(__dirname, "..", "server")
+      ],
+      exclude: [
+        path.join(__dirname, "..", "node_modules"),
+        path.join(__dirname, "..", "build")
+      ]
     },
     "ts|tsx": {
-      loaders: ['react-hot', 'ts-loader']
+      loaders: ['react-hot', 'ts-loader'],
+      exclude: [
+        path.join(__dirname, "..", "node_modules"),
+        path.join(__dirname, "..", "build")
+      ]
     }
   };
 
@@ -140,7 +160,7 @@ module.exports = function(options) {
       root: path.join(__dirname, '..', "node_modules")
     },
     resolve: {
-      root: path.join(__dirname, "..", "app"),
+      root: path.join(__dirname, ".."),
       modulesDirectories: ['node_modules'],
       extensions: ["", ".web.js", ".js", ".jsx", ".ts", ".tsx"]
     },

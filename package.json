@@ -9,6 +9,8 @@
   "scripts": {
     "dev-server": "node webpack/dev-server.js",
     "build": "NODE_ENV=production webpack --config webpack/webpack-production.config.js --progress --profile --colors",
+    "build-client": "NODE_ENV=production webpack --config webpack/webpack-production.config.js --progress --profile --colors",
+    "build-server": "tsc -m commonjs --sourceMap server/index.ts",
     "start-dev": "node server/development",
     "start-old": "node server/production",
     "start": "better-npm-run start",
@@ -40,10 +42,10 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
-
     "classnames": "2.2.3",
     "express": "4.13.3",
     "extract-text-webpack-plugin": "0.9.1",
+    "json-loader": "0.5.4",
     "lodash": "3.10.1",
     "react": "0.14.6",
     "react-dom": "0.14.6",
