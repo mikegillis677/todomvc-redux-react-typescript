@@ -6,3 +6,11 @@ build/stats-dev.json*
 tmp/
 dist/
 .sw[a-z]
+
+config/SimpleRenderer.js
+config/SimpleRenderer.js.map
+server/config.js
+server/config.js.map
+server/index.js
+server/index.js.map
+
