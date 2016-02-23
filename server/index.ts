@@ -10,7 +10,7 @@ import { match, RouterContext } from 'react-router';    // { match, RouterContex
 import { createLocation } from 'history';   // { createLocation }
 //var Html = require('../client/helpers/Html.tsx');
 import * as ReactDOMServer from 'react-dom/server';
-import * as SimpleRenderer from "../config/SimpleRenderer";
+import { Renderer } from "../config/SimpleRenderer";
 
 interface BuildStatsAssetsByChunkName {
   todos: string[]
@@ -29,7 +29,7 @@ export default function runServer(options) {
 
   var publicPath = stats.publicPath;
 
-  var renderer = new SimpleRenderer.Renderer({
+  var renderer = new Renderer({
     styleUrl: options.separateStylesheet && (publicPath + "todos.css?" + stats.hash),
     scriptUrl: publicPath + [].concat(stats.assetsByChunkName.todos)[0]
   });
