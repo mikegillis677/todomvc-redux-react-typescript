@@ -23,17 +23,11 @@ module.exports = function(options) {
         'webpack-dev-server/client?http://0.0.0.0:2992',
         'webpack/hot/only-dev-server',
         './client/index'
-      ],
-      serverSide: [
-        './server/index'
       ]
     };
   } else {
     entry = {
-      todos: './client/index',
-      serverSide: [
-        './server/index'
-      ]
+      todos: './client/index'
     }
   }
 
