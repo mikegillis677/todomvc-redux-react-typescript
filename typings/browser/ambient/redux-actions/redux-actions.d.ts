@@ -1,3 +1,5 @@
+// Compiled using typings@0.6.8
+// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/c491b84f7aa7ebcc1c9b286f1aa085f29c79c1d6/redux-actions/redux-actions.d.ts
 // Type definitions for redux-actions v0.8.0
 // Project: https://github.com/acdlite/redux-actions
 // Definitions by: Jack Hsu <https://github.com/jaysoo>
@@ -31,4 +33,3 @@ declare module ReduxActions {
 declare module 'redux-actions' {
     export = ReduxActions;
 }
-

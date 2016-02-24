@@ -1,4 +1,4 @@
-/// <reference path='../typings/tsd.d.ts'/>
+/// <reference path='../typings/main.d.ts'/>
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -15,6 +15,8 @@ import {
   Provider
 } from 'react-redux';
 import { Action } from 'redux-actions';
+import { Router, browserHistory } from 'react-router';
+import routes from './routes';
 
 import App from './containers/App';
 import { rootReducer } from './reducers/rootReducer';
@@ -25,7 +27,7 @@ const store: Store = createStore(rootReducer, initialState);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>{routes}</Router>
   </Provider>,
   document.getElementById('app')
 );
