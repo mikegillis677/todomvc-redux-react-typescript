@@ -13,4 +13,7 @@ server/config.js
 server/config.js.map
 server/index.js
 server/index.js.map
-
+server/*.js
+server/*.js.map
+client/*.js
+client/*.js.map
