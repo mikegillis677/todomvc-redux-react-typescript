@@ -6,11 +6,10 @@ import * as http from 'http';
 import * as serveStatic from 'serve-static';
 import * as fs from 'fs';
 import { config, ServerConfig } from './config';
-import { match, RouterContext } from 'react-router';    // { match, RouterContext }
-import { createLocation } from 'history';   // { createLocation }
+import { match, RouterContext } from 'react-router';
+import { createLocation } from 'history';
 import Html from '../client/helpers/Html';
 import * as ReactDOMServer from 'react-dom/server';
-import { Renderer } from "../config/SimpleRenderer";
 
 import * as React from 'react';
 import {
@@ -30,18 +29,11 @@ interface BuildStats {
   assetsByChunkName: BuildStatsAssetsByChunkName
 }
 
-export default function runServer(options) {
+function runServer(options) {
   // load bundle information from stats
   var statsFilename = options.devServer ? "../build/stats-dev.json" : "../build/stats.json";
   statsFilename = path.join(__dirname, statsFilename);
   var stats: BuildStats = JSON.parse(fs.readFileSync(statsFilename, 'utf8'));
-
-  var publicPath = stats.publicPath;
-
-  var renderer = new Renderer({
-    styleUrl: options.separateStylesheet && (publicPath + "todos.css?" + stats.hash),
-    scriptUrl: publicPath + [].concat(stats.assetsByChunkName.todos)[0]
-  });
 
   var app = express();
 
@@ -57,6 +49,7 @@ export default function runServer(options) {
     const location = createLocation(req.url);
     match({ routes, location }, (error, redirectLocation, renderProps: any) => {
       const store: Store = createStore(rootReducer, {});
+      const publicPath = stats.publicPath;
       const scriptUrl: string = publicPath + [].concat(stats.assetsByChunkName.todos)[0];
       const styleUrl: string = options.separateStylesheet && (publicPath + "todos.css?" + stats.hash);
       const component = (
@@ -68,25 +61,7 @@ export default function runServer(options) {
       res.send('<!doctype html>\n' +
         ReactDOMServer.renderToString(<Html scriptUrl={scriptUrl} styleUrl={styleUrl} component={component} store={store}/>));
     });
-
-/*
-    renderer.render(
-      req.path,
-      function(err, html) {
-        if(err) {
-          res.statusCode = 500;
-          res.contentType("html");
-          res.end(err.message);
-          return;
-        }
-        res.contentType("html");
-        res.end(html);
-      }
-    );
-    */
   });
-
-  //app.use(serveStatic(config.publicPath, {'index': ['index.html']}));
 
   var server = http.createServer(app);
 
@@ -94,3 +69,5 @@ export default function runServer(options) {
     console.log('listening on http://localhost:' + config.port);
   });
 };
+
+export = runServer;

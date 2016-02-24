@@ -12,20 +12,8 @@
     "build-client": "NODE_ENV=production webpack --config webpack/webpack-production.config.js --progress --profile --colors",
     "build-server": "tsc -m commonjs --jsx react --sourceMap server/index.tsx",
     "start-dev": "node server/development",
-    "start-old": "node server/production",
-    "start": "better-npm-run start",
+    "start": "node server/production",
     "test": "./node_modules/.bin/tsc && ./node_modules/.bin/mocha  --require test-setup --recursive ./dist/**/__spec__/**/*-spec.js"
-  },
-  "betterScripts": {
-    "start": {
-      "command": "node ./bin/server.js",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "PORT": 8080,
-        "APIPORT": 3030
-      }
-    }
   },
   "author": "Jack Hsu <jack.hsu@gmail.com>",
   "license": "ISC",
