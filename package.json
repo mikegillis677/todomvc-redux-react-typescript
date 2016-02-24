@@ -10,7 +10,7 @@
     "dev-server": "node webpack/dev-server.js",
     "build": "NODE_ENV=production webpack --config webpack/webpack-production.config.js --progress --profile --colors",
     "build-client": "NODE_ENV=production webpack --config webpack/webpack-production.config.js --progress --profile --colors",
-    "build-server": "tsc -m commonjs --jsx react --outdir dist --sourceMap server/index.tsx",
+    "build-server": "tsc -m commonjs --jsx react --outdir build --sourceMap server/index.tsx",
     "start-dev": "node server/development",
     "start": "node server/production",
     "test": "./node_modules/.bin/tsc && ./node_modules/.bin/mocha  --require test-setup --recursive ./dist/**/__spec__/**/*-spec.js"
