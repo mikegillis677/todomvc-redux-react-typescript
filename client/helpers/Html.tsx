@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-import serialize from 'serialize-javascript';
+import serialize = require('serialize-javascript');
 
 import {
   Store,
@@ -25,17 +25,19 @@ interface Assets {
   javascript: AssetJavascript;
 }
 interface HtmlProps {
-  assets: Assets;
   component: React.ReactElement<any>;
   store: Store;
+  scriptUrl: string;
+  styleUrl: string;
 }
 
 export default class Html extends React.Component<HtmlProps, void> {
   render() {
     const {
-      assets,
       component,
-      store
+      store,
+      scriptUrl,
+      styleUrl
     } = this.props;
 
     const content = component ? renderToString(component) : '';
@@ -46,16 +48,13 @@ export default class Html extends React.Component<HtmlProps, void> {
           <title>TodoMVC</title>
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          {/* styles (will be present only in production with webpack extract text plugin) */}
-          {Object.keys(assets.styles).map((style, key) =>
-            <link href={assets.styles[style]} key={key} media="screen, projection"
-                  rel="stylesheet" type="text/css" charSet="UTF-8"/>
-          )}
+          <link href={styleUrl} media="screen, projection"
+                rel="stylesheet" type="text/css" charSet="UTF-8"/>
         </head>
         <body>
-          <div id="content" dangerouslySetInnerHTML={{__html: content}}/>
+          <div id="app" dangerouslySetInnerHTML={{__html: content}}/>
           <script dangerouslySetInnerHTML={{__html: `window.__data=${serialize(store.getState())};`}} charSet="UTF-8"/>
-          <script src={assets.javascript.main} charSet="UTF-8"/>
+          <script src={scriptUrl} charSet="UTF-8"/>
         </body>
       </html>
     );

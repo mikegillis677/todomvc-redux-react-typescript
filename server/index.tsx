@@ -12,6 +12,15 @@ import Html from '../client/helpers/Html';
 import * as ReactDOMServer from 'react-dom/server';
 import { Renderer } from "../config/SimpleRenderer";
 
+import * as React from 'react';
+import {
+  Store,
+  createStore
+} from 'redux';
+import {Provider} from 'react-redux';
+import { rootReducer } from '../client/reducers/rootReducer';
+import routes from '../client/routes';
+
 interface BuildStatsAssetsByChunkName {
   todos: string[]
 }
@@ -44,14 +53,23 @@ export default function runServer(options) {
   }));
 
   app.get("/*", function(req, res) {
-    /*
-    const location = createLocation(req.url);
 
+    const location = createLocation(req.url);
     match({ routes, location }, (error, redirectLocation, renderProps: any) => {
-      var html = ReactDOMServer.renderToString(<RouterContext {...renderProps} />)
-      return res.render('main', { content: html, title: 'Home', min: min });
+      const store: Store = createStore(rootReducer, {});
+      const scriptUrl: string = publicPath + [].concat(stats.assetsByChunkName.todos)[0];
+      const styleUrl: string = options.separateStylesheet && (publicPath + "todos.css?" + stats.hash);
+      const component = (
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>
+      );
+
+      res.send('<!doctype html>\n' +
+        ReactDOMServer.renderToString(<Html scriptUrl={scriptUrl} styleUrl={styleUrl} component={component} store={store}/>));
     });
-    */
+
+/*
     renderer.render(
       req.path,
       function(err, html) {
@@ -65,6 +83,7 @@ export default function runServer(options) {
         res.end(html);
       }
     );
+    */
   });
 
   //app.use(serveStatic(config.publicPath, {'index': ['index.html']}));
