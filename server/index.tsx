@@ -7,7 +7,7 @@ import * as serveStatic from 'serve-static';
 import * as fs from 'fs';
 import { config, ServerConfig } from './config';
 import { match, RouterContext } from 'react-router';
-import { createLocation } from 'history';
+import history = require('history');
 import Html from '../client/helpers/Html';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -46,7 +46,8 @@ function runServer(options) {
 
   app.get("/*", function(req, res) {
 
-    const location = createLocation(req.url);
+    const historyObj = history.createMemoryHistory();
+    const location = historyObj.createLocation(req.url);
     match({ routes, location }, (error, redirectLocation, renderProps: any) => {
       const store: Store = createStore(rootReducer, {});
       const publicPath = stats.publicPath;
