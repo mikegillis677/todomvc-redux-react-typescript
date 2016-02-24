@@ -4,16 +4,5 @@ node_modules/
 npm-debug.log
 build/stats-dev.json*
 tmp/
-dist/
+build/
 .sw[a-z]
-
-config/SimpleRenderer.js
-config/SimpleRenderer.js.map
-server/config.js
-server/config.js.map
-server/index.js
-server/index.js.map
-server/*.js
-server/*.js.map
-client/*.js
-client/*.js.map
