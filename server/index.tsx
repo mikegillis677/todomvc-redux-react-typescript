@@ -31,17 +31,17 @@ interface BuildStats {
 
 function runServer(options) {
   // load bundle information from stats
-  var statsFilename = options.devServer ? "../build/stats-dev.json" : "../build/stats.json";
+  var statsFilename = options.devServer ? "../../build/stats-dev.json" : "../../build/stats.json";
   statsFilename = path.join(__dirname, statsFilename);
   var stats: BuildStats = JSON.parse(fs.readFileSync(statsFilename, 'utf8'));
 
   var app = express();
 
   // serve the static assets
-  app.use("/_assets", express.static(path.join(__dirname, "..", "build", "public"), {
+  app.use("/_assets", express.static(path.join(__dirname, "..", "..", "build", "public"), {
     maxAge: "200d" // We can cache them as they include hashes
   }));
-  app.use("/", express.static(path.join(__dirname, "..", "public"), {
+  app.use("/", express.static(path.join(__dirname, "..", "..", "public"), {
   }));
 
   app.get("/*", function(req, res) {
