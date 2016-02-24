@@ -1,4 +1,4 @@
-require("./index")({
+require("../dist/server/index")({
   prerender: true,
   separateStylesheet: true,
   devServer: false,
