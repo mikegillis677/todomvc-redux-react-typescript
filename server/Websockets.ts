@@ -36,8 +36,14 @@ export default class Websockets {
     this.server.on('connection', (socket: SocketIO.Socket) => {
       console.log('Connected client: ' + socket.id);
 
-      socket.emit('state', JSON.stringify(store.getState()) );
-      socket.on('action', store.dispatch.bind(store));
+      socket.emit('state', () => {
+        console.log('Emitting');
+        return JSON.stringify(store.getState());
+      });
+      socket.on('action', (action) => {
+        console.log('Action received', action);
+        return store.dispatch.bind(store);
+      });
     });
   }
 }

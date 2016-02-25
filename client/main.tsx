@@ -8,7 +8,8 @@ import {
   compose,
   createStore,
   bindActionCreators,
-  combineReducers
+  combineReducers,
+  applyMiddleware
 } from 'redux';
 import {
   connect,
@@ -22,11 +23,16 @@ import App from './containers/App';
 import { rootReducer } from './reducers/rootReducer';
 import * as TodoActions from './actions/todos';
 import * as io from 'socket.io-client';
+import * as remoteActionMiddleware from './middlewares/remoteAction';
 
 const initialState = {};
 
-const store: Store = createStore(rootReducer, initialState);
 const socket = io(`${location.protocol}//${location.hostname}:8000`);
+const createStoreWithMiddleware = applyMiddleware(
+  remoteActionMiddleware(socket)
+)(createStore);
+const store: Store = createStoreWithMiddleware(rootReducer, initialState);
+
 socket.on('state', state => {
   for(var todo of state) {
     TodoActions.setTodo(todo);
