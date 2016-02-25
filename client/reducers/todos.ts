@@ -3,6 +3,7 @@ import { handleActions, Action } from 'redux-actions';
 
 import { Todo } from '../models/todos';
 import {
+  SET_TODO,
   ADD_TODO,
   DELETE_TODO,
   EDIT_TODO,
@@ -18,6 +19,23 @@ const initialState = [<Todo>{
 }];
 
 export default handleActions<Todo[]>({
+  [SET_TODO]: (state: Todo[], action: Action): Todo[] => {
+    let inState = state.filter(todo => todo.id === action.payload.id);
+    if(inState.length > 0) {
+      return <Todo[]>state.map(todo =>
+        todo.id === action.payload.id
+          ? assign(<Todo>{}, todo, { text: action.payload.text })
+          : todo
+      );
+    } else {
+      return [{
+        id: action.payload.id,
+        completed: action.payload.completed,
+        text: action.payload.text
+      }, ...state];
+    }
+  },
+
   [ADD_TODO]: (state: Todo[], action: Action): Todo[] => {
     return [{
       id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,

@@ -10,6 +10,7 @@ import { match, RouterContext } from 'react-router';
 import history = require('history');
 import Html from '../client/helpers/Html';
 import * as ReactDOMServer from 'react-dom/server';
+import Websockets from './Websockets';
 
 import * as React from 'react';
 import {
@@ -35,6 +36,8 @@ function runServer(options) {
   statsFilename = path.join(__dirname, statsFilename);
   var stats: BuildStats = JSON.parse(fs.readFileSync(statsFilename, 'utf8'));
 
+  const store: Store = createStore(rootReducer, {});
+
   var app = express();
 
   // serve the static assets
@@ -49,7 +52,6 @@ function runServer(options) {
     const historyObj = history.createMemoryHistory();
     const location = historyObj.createLocation(req.url);
     match({ routes, location }, (error, redirectLocation, renderProps: any) => {
-      const store: Store = createStore(rootReducer, {});
       const publicPath = stats.publicPath;
       const scriptUrl: string = publicPath + [].concat(stats.assetsByChunkName.todos)[0];
       const styleUrl: string = options.separateStylesheet && (publicPath + "todos.css?" + stats.hash);
@@ -65,6 +67,7 @@ function runServer(options) {
   });
 
   var server = http.createServer(app);
+  var websockets = new Websockets(server, store);
 
   server.listen(config.port, function () {
     console.log('listening on http://localhost:' + config.port);
