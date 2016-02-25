@@ -33,7 +33,8 @@ export default class Websockets {
 
   setupOnConnection() {
     const store = this.store;
-    this.server.on('connection', (socket: SocketIO.Socket) => {
+    const server = this.server;
+    server.on('connection', (socket: SocketIO.Socket) => {
       console.log('Connected client: ' + socket.id);
 
       socket.emit('state', () => {
@@ -42,7 +43,8 @@ export default class Websockets {
       });
       socket.on('action', (action) => {
         console.log('Action received', action);
-        return store.dispatch.bind(store);
+        action.creator = socket.id;
+        server.emit('client-action', action);
       });
     });
   }

@@ -33,11 +33,14 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore);
 const store: Store = createStoreWithMiddleware(rootReducer, initialState);
 
-socket.on('state', state => {
-  for(var todo of state) {
-    TodoActions.setTodo(todo);
+socket.on('client-action', action => {
+  action.remote = true;
+  if(action.creator !== socket.id) {
+    console.log('dispatching action', action, socket.id);
+    store.dispatch(action);    
   }
 });
+
 
 ReactDOM.render(
   <Provider store={store}>

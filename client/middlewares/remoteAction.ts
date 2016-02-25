@@ -3,7 +3,7 @@ import * as io from 'socket.io-client';
 
 var remoteAction:(socket:any) => Middleware = socket => store => next => action => {
   console.log("in middleware", action);
-  if(action.type !== "SET_TODO") {
+  if(!action.remote) {
     socket.emit("action", action);
   }
   return next(action);
