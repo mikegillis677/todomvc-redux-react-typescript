@@ -14,6 +14,7 @@
 /// <reference path="main/ambient/redux-actions/redux-actions.d.ts" />
 /// <reference path="main/ambient/redux/redux.d.ts" />
 /// <reference path="main/ambient/serve-static/serve-static.d.ts" />
+/// <reference path="main/ambient/socket.io-client/socket.io-client.d.ts" />
 /// <reference path="main/ambient/socket.io/socket.io.d.ts" />
 /// <reference path="main/ambient/yargs/yargs.d.ts" />
 /// <reference path="serialize-javascript.d.ts" />
