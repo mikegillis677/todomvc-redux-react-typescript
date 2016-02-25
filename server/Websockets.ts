@@ -27,14 +27,16 @@ export default class Websockets {
   bindStore(store: Store) {
     this.store = store;
     store.subscribe(
-      () => this.server.emit('state', store.getState().toJS())
+      () => this.server.emit('state', JSON.stringify(store.getState()) )
     );
   }
 
   setupOnConnection() {
     const store = this.store;
-    this.server.on('connection', (socket) => {
-      socket.emit('state', store.getState().toJS());
+    this.server.on('connection', (socket: SocketIO.Socket) => {
+      console.log('Connected client: ' + socket.id);
+
+      socket.emit('state', JSON.stringify(store.getState()) );
       socket.on('action', store.dispatch.bind(store));
     });
   }

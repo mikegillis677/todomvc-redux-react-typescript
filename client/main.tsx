@@ -20,10 +20,18 @@ import routes from './routes';
 
 import App from './containers/App';
 import { rootReducer } from './reducers/rootReducer';
+import * as TodoActions from './actions/todos';
+import * as io from 'socket.io-client';
 
 const initialState = {};
 
 const store: Store = createStore(rootReducer, initialState);
+const socket = io(`${location.protocol}//${location.hostname}:8000`);
+socket.on('state', state => {
+  for(var todo of state) {
+    TodoActions.setTodo(todo);
+  }
+});
 
 ReactDOM.render(
   <Provider store={store}>

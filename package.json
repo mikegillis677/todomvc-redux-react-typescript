@@ -13,7 +13,7 @@
     "build-server": "tsc -m commonjs --jsx react --outdir build --sourceMap server/index.tsx",
     "start-dev": "node server/development",
     "start": "node server/production",
-    "test": "./node_modules/.bin/tsc && ./node_modules/.bin/mocha  --require test-setup --recursive ./dist/**/__spec__/**/*-spec.js"
+    "test": "./node_modules/.bin/tsc && ./node_modules/.bin/mocha  --require test-setup --recursive ./build/**/__spec__/**/*-spec.js"
   },
   "author": "Jack Hsu <jack.hsu@gmail.com>",
   "license": "ISC",

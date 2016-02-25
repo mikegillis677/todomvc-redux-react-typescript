@@ -4,6 +4,11 @@ import { assign } from 'lodash';
 import { Todo } from '../models/todos';
 import * as types from '../constants/ActionTypes';
 
+const setTodo = createAction<Todo>(
+  types.SET_TODO,
+  (todo: Todo) => todo
+);
+
 const addTodo = createAction<Todo>(
   types.ADD_TODO,
   (text: string) => ({ text, completed: false })
@@ -35,6 +40,7 @@ const clearCompleted = createAction<void>(
 );
 
 export {
+  setTodo,
   addTodo,
   deleteTodo,
   editTodo,
