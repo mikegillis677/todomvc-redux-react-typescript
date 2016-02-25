@@ -13,6 +13,7 @@
 /// <reference path="main/ambient/react/react.d.ts" />
 /// <reference path="main/ambient/redux-actions/redux-actions.d.ts" />
 /// <reference path="main/ambient/redux/redux.d.ts" />
-/// <reference path="serialize-javascript.d.ts"/>
 /// <reference path="main/ambient/serve-static/serve-static.d.ts" />
+/// <reference path="main/ambient/socket.io/socket.io.d.ts" />
 /// <reference path="main/ambient/yargs/yargs.d.ts" />
+/// <reference path="serialize-javascript.d.ts" />

@@ -14,4 +14,5 @@
 /// <reference path="browser/ambient/redux-actions/redux-actions.d.ts" />
 /// <reference path="browser/ambient/redux/redux.d.ts" />
 /// <reference path="browser/ambient/serve-static/serve-static.d.ts" />
+/// <reference path="browser/ambient/socket.io/socket.io.d.ts" />
 /// <reference path="browser/ambient/yargs/yargs.d.ts" />
