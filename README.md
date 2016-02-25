@@ -6,6 +6,8 @@ This is an implementation of [TodoMVC](http://todomvc.com/) built using:
 - [Redux](https://github.com/rackt/redux) 3.0.4
 - [TypeScript](http://www.typescriptlang.org/) 1.7.5
 
+This is a fork of [TodoMVC by jaysoo](https://github.com/jaysoo/todomvc-redux-react-typescript), with server-side rendering with react, and communication between clients with websockets added.
+
 It is adapted from the [redux TodoMVC example](https://github.com/rackt/redux/tree/master/examples/todomvc).
 
 Read more about it in my blog post: http://jaysoo.ca/2015/09/26/typed-react-and-redux/
